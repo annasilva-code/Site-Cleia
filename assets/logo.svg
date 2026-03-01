@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 80" role="img" aria-label="Cléia Neres Studio de Beleza">
+  <title>Cléia Neres Studio de Beleza</title>
+
+  <!-- Linhas decorativas esquerdas (reprodução do PDF) -->
+  <line x1="0" y1="18" x2="58" y2="18" stroke="#b26f5e" stroke-width="0.9"/>
+  <line x1="0" y1="62" x2="58" y2="62" stroke="#b26f5e" stroke-width="0.9"/>
+
+  <!-- Eyebrow pequeno -->
+  <text
+    x="68" y="15"
+    font-family="Georgia,'Times New Roman',serif"
+    font-size="8"
+    letter-spacing="4.5"
+    fill="#8a7a6e">CLÉIA NERES</text>
+
+  <!-- Nome principal -->
+  <text
+    x="66" y="52"
+    font-family="Georgia,'Times New Roman',serif"
+    font-size="32"
+    letter-spacing="5"
+    fill="#2a2018"
+    font-weight="300">CLÉIA NERES</text>
+
+  <!-- Studio de Beleza -->
+  <text
+    x="68" y="70"
+    font-family="Georgia,'Times New Roman',serif"
+    font-size="8"
+    letter-spacing="7.5"
+    fill="#8a7a6e">STUDIO DE BELEZA</text>
+
+  <!-- Linha decorativa direita -->
+  <line x1="335" y1="62" x2="380" y2="62" stroke="#b26f5e" stroke-width="0.9"/>
+</svg>

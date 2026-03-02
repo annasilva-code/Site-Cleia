@@ -1,0 +1,14 @@
+{
+  "name": "cleia-neres-backend",
+  "version": "2.0.0",
+  "private": true,
+  "description": "API de agendamentos com PostgreSQL",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

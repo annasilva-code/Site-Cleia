@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin | Cleia Neres</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body class="admin-body">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/">
+          <span class="brand-name">Cléia Neres</span>
+          <span class="brand-sub">Painel Administrativo</span>
+        </a>
+        <a class="btn-ghost" href="/">Voltar ao site</a>
+      </div>
+    </header>
+
+    <main class="section admin-main">
+      <div class="container">
+        <section class="admin-login-card" id="admin-login-card">
+          <span class="section-label">Acesso restrito</span>
+          <h2>Entrar no painel</h2>
+          <form id="admin-login-form" class="admin-form admin-login-form">
+            <label for="admin-username">Usuário</label>
+            <input id="admin-username" name="username" type="text" required />
+
+            <label for="admin-password">Senha</label>
+            <input id="admin-password" name="password" type="password" required />
+
+            <button type="submit" class="btn">Entrar</button>
+            <p id="admin-login-feedback" class="booking-feedback" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section id="admin-app" class="admin-app hidden">
+          <div class="admin-toolbar">
+            <div>
+              <span class="section-label">Gestão da agenda</span>
+              <h2>Painel Profissional</h2>
+            </div>
+            <div class="admin-toolbar-actions">
+              <button id="admin-refresh" class="btn-ghost" type="button">Atualizar</button>
+              <button id="admin-logout" class="btn-ghost" type="button">Sair</button>
+            </div>
+          </div>
+
+          <section class="admin-metrics">
+            <article class="admin-metric-card">
+              <p>Hoje</p>
+              <strong id="metric-today">0</strong>
+            </article>
+            <article class="admin-metric-card">
+              <p>Semana</p>
+              <strong id="metric-week">0</strong>
+            </article>
+            <article class="admin-metric-card">
+              <p>Pendentes</p>
+              <strong id="metric-pending">0</strong>
+            </article>
+            <article class="admin-metric-card">
+              <p>Confirmados</p>
+              <strong id="metric-confirmed">0</strong>
+            </article>
+          </section>
+
+          <div class="admin-dashboard-grid">
+            <section class="admin-card">
+              <div class="admin-calendar-header">
+                <button id="calendar-prev" class="btn-ghost" type="button">&lt;</button>
+                <h3 id="calendar-title">Calendário</h3>
+                <button id="calendar-next" class="btn-ghost" type="button">&gt;</button>
+              </div>
+              <div class="admin-weekdays">
+                <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+              </div>
+              <div id="admin-calendar" class="admin-calendar-grid"></div>
+            </section>
+
+            <section class="admin-card admin-slices">
+              <div>
+                <h3>Agendamentos de hoje</h3>
+                <ul id="admin-today-list" class="admin-mini-list"></ul>
+              </div>
+              <div>
+                <h3>Agendamentos da semana</h3>
+                <ul id="admin-week-list" class="admin-mini-list"></ul>
+              </div>
+            </section>
+          </div>
+
+          <section class="admin-card admin-timeline-card">
+            <div class="admin-list-header">
+              <h3>Timeline do dia</h3>
+              <p id="admin-timeline-caption" class="admin-list-caption"></p>
+            </div>
+            <div id="admin-day-timeline" class="admin-day-timeline"></div>
+          </section>
+
+          <div class="admin-grid">
+            <aside class="admin-card">
+              <h3>Novo agendamento manual</h3>
+              <form id="admin-create-form" class="admin-form">
+                <label for="create-clientName">Nome</label>
+                <input id="create-clientName" name="clientName" type="text" minlength="3" required />
+
+                <label for="create-clientPhone">Telefone</label>
+                <input id="create-clientPhone" name="clientPhone" type="tel" required />
+
+                <label for="create-serviceId">Serviço</label>
+                <select id="create-serviceId" name="serviceId" required></select>
+
+                <label for="create-date">Data</label>
+                <input id="create-date" name="date" type="date" required />
+
+                <label for="create-time">Horário</label>
+                <input id="create-time" name="time" type="time" step="1800" required />
+
+                <label for="create-notes">Observações</label>
+                <textarea id="create-notes" name="notes" rows="3"></textarea>
+
+                <button type="submit" class="btn">Inserir agendamento</button>
+                <p id="admin-create-feedback" class="booking-feedback" aria-live="polite"></p>
+              </form>
+            </aside>
+
+            <section class="admin-card admin-list-card">
+              <div class="admin-list-header">
+                <h3>Agenda completa</h3>
+                <p id="admin-list-caption" class="admin-list-caption"></p>
+              </div>
+              <div id="admin-bookings" class="admin-bookings"></div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="scripts/admin.js"></script>
+  </body>
+</html>

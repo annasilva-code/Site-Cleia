@@ -4,520 +4,582 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Cléia · Salão de Beleza — Natal/RN</title>
-<meta name="description" content="Cléia Salão de Beleza. Cortes, coloração, hidratação, luzes e finalizações em um ambiente elegante e acolhedor no Alecrim, Natal/RN." />
+<meta name="description" content="Cléia Salão de Beleza. Cortes, coloração, hidratação e finalizações em um ambiente elegante no Alecrim, Natal/RN." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --cream-1:#f6ebdd;
+    --cream:#f6ebdd;
     --cream-2:#efe1d0;
-    --cream-3:#e6d3bc;
-    --brown-1:#3a2418;
-    --brown-2:#5b3a29;
-    --brown-3:#7a4f3a;
+    --cream-3:#e9d8be;
+    --brown-1:#2b1a12;   /* quase preto quente */
+    --brown-2:#3a2418;
+    --brown-3:#5b3a29;
+    --brown-4:#7a4f3a;
     --gold:#c9a35d;
-    --gold-soft:#d8b777;
-    --ink:#2b1a12;
+    --gold-2:#b88d49;
+    --ink:#1f120b;
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Jost', sans-serif;
-    font-weight:300;
-    color:var(--ink);
-    background:var(--cream-1);
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    font-family:'Inter',sans-serif;font-weight:300;
+    background:var(--cream);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;
   }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:1.05;letter-spacing:.005em;color:var(--brown-2)}
 
-  h1,h2,h3,h4{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:400;
-    color:var(--brown-1);
-    letter-spacing:.005em;
-    line-height:1.1;
-  }
+  .container{max-width:1280px;margin:0 auto;padding:0 36px}
+  .small-caps{font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.36em;text-transform:uppercase;font-weight:400}
 
-  .container{max-width:1200px;margin:0 auto;padding:0 28px}
-
-  /* divisor com losangos */
-  .ornament{
-    display:flex;align-items:center;justify-content:center;gap:14px;
-    margin:18px auto;color:var(--gold);
-  }
-  .ornament .line{height:1px;width:60px;background:var(--gold)}
-  .ornament .diamond{
-    width:8px;height:8px;background:var(--gold);
-    transform:rotate(45deg);
-  }
-  .ornament .label{
-    font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.32em;
-    text-transform:uppercase;color:var(--brown-2);font-weight:400;
-  }
-
-  /* header */
+  /* ===================================================================
+     HEADER (sobre o hero)
+     =================================================================== */
   header.site{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    padding:18px 0;
-    transition:background .35s ease, padding .35s ease, box-shadow .35s ease;
+    position:absolute;top:0;left:0;right:0;z-index:30;
+    padding:30px 0;color:var(--cream);
   }
   header.site.scrolled{
-    background:rgba(246,235,221,.92);
-    backdrop-filter:blur(8px);
-    box-shadow:0 1px 0 rgba(122,79,58,.08);
-    padding:12px 0;
+    position:fixed;background:rgba(43,26,18,.92);backdrop-filter:blur(8px);
+    padding:18px 0;animation:slideDown .3s ease;
   }
-  .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative}
-  .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--brown-1)}
-  .nav-logo .mark{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;letter-spacing:.01em;font-style:italic}
-  .nav-logo .mark span{color:var(--gold);margin-left:4px}
-  .nav ul{display:flex;list-style:none;gap:34px}
-  .nav a.link{
-    text-decoration:none;color:var(--brown-2);font-size:.82rem;
-    letter-spacing:.22em;text-transform:uppercase;font-weight:400;
-    position:relative;padding:6px 0;
+  @keyframes slideDown{from{transform:translateY(-100%)}to{transform:none}}
+  .nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;position:relative}
+  .nav-left{display:flex;gap:20px;align-items:center}
+  .nav-left a{color:var(--cream);text-decoration:none;opacity:.85;transition:opacity .2s}
+  .nav-left a:hover{opacity:1}
+  .nav-center{display:flex;justify-content:center}
+  .nav-center img{height:48px;width:auto;filter:brightness(0) invert(1) sepia(.2) saturate(.6) brightness(1.4)}
+  .nav-right{display:flex;justify-content:flex-end;gap:30px;align-items:center}
+  .nav-right ul{display:flex;list-style:none;gap:30px}
+  .nav-right a.link{
+    text-decoration:none;color:var(--cream);font-size:.74rem;letter-spacing:.28em;
+    text-transform:uppercase;font-weight:400;opacity:.85;transition:opacity .2s;
   }
-  .nav a.link::after{
-    content:"";position:absolute;left:50%;bottom:0;height:1px;width:0;background:var(--gold);
-    transition:width .3s ease, left .3s ease;
+  .nav-right a.link:hover{opacity:1}
+  .contact-pill{
+    border:1px solid rgba(246,235,221,.4);padding:10px 22px;border-radius:0;
+    text-decoration:none;color:var(--cream);font-size:.7rem;letter-spacing:.3em;
+    text-transform:uppercase;transition:all .3s;
   }
-  .nav a.link:hover::after{width:100%;left:0}
-  .nav .cta{
-    background:var(--brown-1);color:var(--cream-1);
-    padding:11px 22px;border-radius:999px;text-decoration:none;
-    font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;
-    transition:background .3s, transform .3s;
-  }
-  .nav .cta:hover{background:var(--brown-2);transform:translateY(-1px)}
-  .menu-btn{display:none;background:none;border:0;cursor:pointer;color:var(--brown-1)}
+  .contact-pill:hover{background:var(--cream);color:var(--brown-1);border-color:var(--cream)}
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;color:var(--cream)}
 
-  /* hero */
+  /* ===================================================================
+     HERO — full bleed photo
+     =================================================================== */
   .hero{
-    min-height:100vh;display:flex;align-items:center;justify-content:center;
-    text-align:center;padding:140px 24px 80px;
+    position:relative;height:100vh;min-height:680px;
+    color:var(--cream);overflow:hidden;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+  }
+  .hero .bg{
+    position:absolute;inset:0;z-index:0;
     background:
-      radial-gradient(1200px 600px at 50% -10%, #fff5e6 0%, transparent 60%),
-      linear-gradient(180deg,var(--cream-1) 0%, var(--cream-2) 100%);
-    position:relative;overflow:hidden;
+      linear-gradient(180deg, rgba(43,26,18,.55) 0%, rgba(43,26,18,.35) 40%, rgba(43,26,18,.7) 100%),
+      url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1800&q=80') center/cover no-repeat,
+      linear-gradient(135deg,#3a2418,#7a4f3a 60%,#c9a35d);
   }
-  .hero::before,.hero::after{
-    content:"";position:absolute;width:520px;height:520px;border-radius:50%;
-    filter:blur(80px);opacity:.5;pointer-events:none;
+  .hero .bg::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(800px 500px at 50% 60%, transparent, rgba(43,26,18,.5));
   }
-  .hero::before{background:#f0d5b1;top:-160px;left:-120px}
-  .hero::after{background:#e7c89a;bottom:-200px;right:-160px}
-  .hero-inner{position:relative;z-index:2;max-width:780px}
-  .hero .eyebrow{
-    font-size:.72rem;letter-spacing:.45em;text-transform:uppercase;
-    color:var(--brown-2);margin-bottom:24px;
-  }
-  .hero-logo{margin:0 auto 18px;width:min(560px,90vw);height:auto;display:block;mix-blend-mode:multiply}
+  .hero-content{position:relative;z-index:2;max-width:780px;padding:0 30px}
+  .hero .eyebrow{margin-bottom:28px;color:var(--gold)}
   .hero h1{
-    font-size:clamp(2rem,4.5vw,3.4rem);
-    font-style:italic;font-weight:400;color:var(--brown-2);
-    margin:18px 0 8px;
+    font-size:clamp(2.6rem,6.4vw,5.6rem);
+    font-weight:400;color:var(--cream);
+    text-transform:uppercase;letter-spacing:.05em;line-height:1.05;
   }
+  .hero h1 em{font-style:italic;font-family:'Cormorant Garamond',serif;font-weight:500;text-transform:none;letter-spacing:.01em;color:var(--gold)}
   .hero p.lead{
-    font-size:1.05rem;color:var(--brown-3);max-width:560px;margin:18px auto 0;
+    font-size:1rem;color:rgba(246,235,221,.85);max-width:480px;margin:24px auto 0;
     font-weight:300;
   }
-  .hero .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:14px 28px;border-radius:999px;
-    font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;
-    text-decoration:none;font-weight:400;cursor:pointer;border:1px solid transparent;
+  .hero-cta-row{
+    position:absolute;left:0;right:0;bottom:50px;z-index:2;
+    display:flex;justify-content:space-between;padding:0 56px;
+  }
+  .hero-cta-row a{
+    color:var(--cream);text-decoration:none;font-size:.74rem;
+    letter-spacing:.32em;text-transform:uppercase;
+    border-bottom:1px solid var(--cream);padding-bottom:6px;
+    transition:color .3s,border-color .3s;
+  }
+  .hero-cta-row a:hover{color:var(--gold);border-color:var(--gold)}
+
+  /* ===================================================================
+     INTRO BAND
+     =================================================================== */
+  .intro{padding:120px 30px;text-align:center;background:var(--cream)}
+  .intro .small-caps{color:var(--brown-3)}
+  .intro p{
+    max-width:720px;margin:32px auto 0;font-size:1.05rem;
+    color:var(--brown-3);line-height:1.85;font-weight:300;
+  }
+  .intro .ornament-line{width:46px;height:1px;background:var(--gold);margin:24px auto 0}
+
+  /* ===================================================================
+     SERVICE CATEGORIES (4 thumbnails)
+     =================================================================== */
+  .cats{padding:30px 0 130px;background:var(--cream)}
+  .cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto;padding:0 36px}
+  .cat{display:block;text-decoration:none;color:var(--brown-2);text-align:center;cursor:pointer}
+  .cat .thumb{
+    aspect-ratio:1/1;overflow:hidden;background:var(--cream-3);
+    position:relative;
+  }
+  .cat .thumb::after{
+    content:"";position:absolute;inset:0;background:rgba(43,26,18,0);transition:background .4s;
+  }
+  .cat:hover .thumb::after{background:rgba(43,26,18,.18)}
+  .cat .thumb img,.cat .thumb .ph{
+    width:100%;height:100%;object-fit:cover;transition:transform .8s ease;
+  }
+  .cat .thumb .ph{display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--brown-3);background:linear-gradient(135deg,#e6cba5,#c69b6d)}
+  .cat:hover .thumb img,.cat:hover .thumb .ph{transform:scale(1.05)}
+  .cat .label{
+    margin-top:18px;font-size:.78rem;letter-spacing:.28em;
+    text-transform:uppercase;font-weight:400;color:var(--brown-2);
+  }
+  .cat .label::after{content:" ›";color:var(--gold);margin-left:4px}
+
+  /* ===================================================================
+     ABOUT (dark band)
+     =================================================================== */
+  .about-dark{
+    background:var(--brown-1);color:var(--cream);
+    padding:120px 30px;text-align:center;position:relative;
+  }
+  .about-dark .small-caps{color:var(--gold)}
+  .about-dark h2{
+    font-size:clamp(2rem,4.4vw,3.4rem);color:var(--cream);
+    text-transform:uppercase;letter-spacing:.04em;line-height:1.15;
+    margin:30px auto 28px;max-width:780px;font-weight:400;
+  }
+  .about-dark h2 em{font-style:italic;text-transform:none;color:var(--gold);letter-spacing:.01em;font-weight:500}
+  .about-dark p{
+    max-width:640px;margin:0 auto;color:rgba(246,235,221,.82);
+    font-size:1.02rem;line-height:1.85;font-weight:300;
+  }
+  .about-dark .more{
+    display:inline-block;margin-top:38px;color:var(--cream);
+    text-decoration:none;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+    border-bottom:1px solid var(--cream);padding-bottom:6px;transition:color .3s,border-color .3s;
+  }
+  .about-dark .more:hover{color:var(--gold);border-color:var(--gold)}
+
+  /* ===================================================================
+     EDITORIAL SPLIT — Cléia + texto gigante
+     =================================================================== */
+  .editorial{
+    position:relative;background:var(--brown-1);
+    height:min(78vh,640px);overflow:hidden;
+    display:grid;grid-template-columns:1fr 1fr;
+  }
+  .editorial .pic{
+    background:linear-gradient(135deg,#5b3a29,#a87245);
+    background-size:cover;background-position:center;
+    position:relative;
+  }
+  .editorial .pic.left{background-image:url('https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=1200&q=80')}
+  .editorial .pic.right{background-image:url('https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=1200&q=80');background-position:center 30%}
+  .editorial .pic.left{background-color:#7a4f3a}
+  .editorial .pic.right{background-color:#5b3a29}
+  .editorial .overlay-text{
+    position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    z-index:5;text-align:center;pointer-events:none;
+  }
+  .editorial .overlay-text span{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+    font-size:clamp(3rem,11vw,9rem);letter-spacing:.02em;color:var(--cream);
+    mix-blend-mode:overlay;white-space:nowrap;
+  }
+  .editorial .pic.left::after{
+    content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(43,26,18,.25),transparent 60%);
+  }
+  .editorial .pic.right::after{
+    content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(43,26,18,.25),transparent 60%);
+  }
+  .editorial .pic.left .ph,
+  .editorial .pic.right .ph{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:rgba(255,255,255,.55);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;
+  }
+
+  /* ===================================================================
+     PRICE LIST
+     =================================================================== */
+  .prices{background:var(--cream-2);padding:120px 30px}
+  .prices .head{text-align:center;margin-bottom:60px}
+  .prices .head .small-caps{color:var(--brown-3)}
+  .prices-grid{
+    max-width:920px;margin:0 auto;display:grid;
+    grid-template-columns:1fr 1fr;gap:18px;
+  }
+  .price{
+    background:var(--cream);padding:38px 30px;text-align:center;
+    border:1px solid rgba(122,79,58,.08);
     transition:all .3s ease;
   }
-  .btn-primary{background:var(--brown-1);color:var(--cream-1)}
-  .btn-primary:hover{background:var(--brown-2);transform:translateY(-2px);box-shadow:0 12px 30px -10px rgba(58,36,24,.35)}
-  .btn-ghost{background:transparent;color:var(--brown-1);border-color:var(--brown-2)}
-  .btn-ghost:hover{background:var(--brown-1);color:var(--cream-1)}
+  .price:hover{background:#fff;border-color:var(--gold);transform:translateY(-2px)}
+  .price h4{
+    font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--brown-2);font-weight:400;margin-bottom:10px;
+  }
+  .price .val{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;
+    color:var(--gold-2);font-weight:500;
+  }
+  .price .desc{font-size:.85rem;color:var(--brown-4);margin-top:6px}
 
-  .scroll-hint{
-    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
-    color:var(--brown-3);font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;
-    display:flex;flex-direction:column;align-items:center;gap:10px;opacity:.7;
+  /* ===================================================================
+     PACKAGES (image+text) — galeria do salão estilo editorial
+     =================================================================== */
+  .packages{background:var(--cream);padding:120px 0 0}
+  .packages .head{text-align:center;margin-bottom:70px;padding:0 30px}
+  .packages .head .small-caps{color:var(--brown-3)}
+  .pkg{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;min-height:520px;
   }
-  .scroll-hint .bar{width:1px;height:50px;background:var(--brown-3);animation:drop 2.4s ease-in-out infinite}
-  @keyframes drop{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+  .pkg.reverse{grid-template-columns:1fr 1fr;direction:rtl}
+  .pkg.reverse > *{direction:ltr}
+  .pkg .text{
+    padding:80px 8vw;display:flex;flex-direction:column;justify-content:center;
+    background:var(--cream-2);
+  }
+  .pkg .text .small-caps{color:var(--gold-2);margin-bottom:18px}
+  .pkg .text h3{
+    font-size:clamp(1.8rem,3vw,2.4rem);text-transform:uppercase;
+    letter-spacing:.03em;line-height:1.15;color:var(--brown-2);font-weight:400;
+  }
+  .pkg .text h3 em{font-style:italic;text-transform:none;color:var(--brown-3);letter-spacing:.005em}
+  .pkg .text .price{margin-top:18px;background:none;border:0;padding:0;text-align:left;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.6rem;color:var(--gold-2)}
+  .pkg .text p{color:var(--brown-3);margin-top:18px;font-size:.96rem;line-height:1.85;max-width:440px}
+  .pkg .img{
+    background:linear-gradient(135deg,#7a4f3a,#c9a35d);
+    background-size:cover;background-position:center;position:relative;
+  }
+  .pkg.p1 .img{background-image:url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1400&q=80')}
+  .pkg.p2 .img{background-image:url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1400&q=80')}
+  .pkg.p3 .img{background-image:url('https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=1400&q=80')}
 
-  /* secoes */
-  section{padding:120px 0;position:relative}
-  .section-head{text-align:center;margin-bottom:64px}
-  .section-head h2{font-size:clamp(2rem,4vw,3rem);font-style:italic}
-  .section-head p{color:var(--brown-3);max-width:560px;margin:14px auto 0;font-size:1rem}
+  /* ===================================================================
+     CONTATO
+     =================================================================== */
+  .contact{background:var(--brown-1);color:var(--cream);padding:130px 30px}
+  .contact .head{text-align:center;margin-bottom:60px}
+  .contact .head .small-caps{color:var(--gold)}
+  .contact .head h2{color:var(--cream);font-size:clamp(2rem,4vw,3rem);text-transform:uppercase;margin-top:24px;letter-spacing:.04em;font-weight:400}
+  .contact .head h2 em{font-style:italic;color:var(--gold);text-transform:none}
+  .c-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1100px;margin:0 auto}
+  .c-info{display:flex;flex-direction:column;gap:30px}
+  .c-row{display:flex;gap:18px;align-items:flex-start}
+  .c-row .ic{width:42px;height:42px;border:1px solid var(--gold);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--gold)}
+  .c-row .label{font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .c-row .value{color:var(--cream);font-size:.98rem;line-height:1.55}
+  .c-row .value a{color:var(--cream);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
+  .c-row .value a:hover{border-color:var(--gold)}
+  .c-cta{
+    display:inline-block;margin-top:14px;background:var(--gold);color:var(--brown-1);
+    padding:18px 36px;text-decoration:none;font-size:.74rem;letter-spacing:.34em;
+    text-transform:uppercase;font-weight:500;transition:all .3s;align-self:flex-start;
+  }
+  .c-cta:hover{background:var(--cream);transform:translateY(-2px)}
+  .map{height:100%;min-height:380px;overflow:hidden;border:1px solid rgba(201,163,93,.25)}
+  .map iframe{width:100%;height:100%;border:0;filter:sepia(.3) saturate(.7) brightness(.85)}
 
-  /* sobre */
-  .about{background:var(--cream-1)}
-  .about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
-  .about-photo{
-    position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;
-    background:linear-gradient(135deg,#e6cba5,#c69b6d);
-  }
-  .about-photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .about-photo::after{
-    content:"";position:absolute;inset:14px;border:1px solid rgba(255,255,255,.45);pointer-events:none;
-  }
-  .about-photo .frame{
-    position:absolute;inset:-18px;border:1px solid var(--gold);
-    border-radius:4px;z-index:-1;
-  }
-  .about-photo .placeholder{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    color:#fff;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.6rem;letter-spacing:.05em;
-  }
-  .about-text .eyebrow{
-    font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;
-    color:var(--gold);margin-bottom:16px;
-  }
-  .about-text h2{font-size:clamp(2rem,3.6vw,2.8rem);font-style:italic;margin-bottom:22px}
-  .about-text p{color:var(--brown-3);margin-bottom:18px;font-size:1.02rem}
-  .about-sign{
-    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.6rem;
-    color:var(--brown-2);margin-top:24px;
-  }
-
-  /* servicos */
-  .services{background:linear-gradient(180deg,var(--cream-1) 0%,#ecdcc6 100%)}
-  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-  .service{
-    background:rgba(255,250,243,.55);
-    border:1px solid rgba(122,79,58,.12);
-    padding:44px 32px;border-radius:2px;text-align:center;
-    transition:all .4s ease;position:relative;overflow:hidden;
-  }
-  .service:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 20px 50px -25px rgba(58,36,24,.25)}
-  .service .icon{
-    width:54px;height:54px;margin:0 auto 22px;color:var(--gold);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .service h3{font-size:1.6rem;margin-bottom:10px;font-style:italic}
-  .service p{color:var(--brown-3);font-size:.95rem}
-
-  /* galeria */
-  .gallery{background:var(--cream-2)}
-  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
-  .gallery-grid .cell{
-    overflow:hidden;background:linear-gradient(135deg,#e6cba5,#c69b6d);
-    position:relative;border-radius:2px;
-  }
-  .gallery-grid .cell img{
-    width:100%;height:100%;object-fit:cover;display:block;
-    transition:transform .8s ease;
-  }
-  .gallery-grid .cell:hover img{transform:scale(1.06)}
-  .gallery-grid .cell .ph{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    color:#fff;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;
-  }
-  .cell.tall{grid-row:span 2}
-  .cell.wide{grid-column:span 2}
-  .cell:nth-child(2){background:linear-gradient(135deg,#d8b58a,#b3815a)}
-  .cell:nth-child(3){background:linear-gradient(135deg,#e0c39a,#a87245)}
-  .cell:nth-child(4){background:linear-gradient(135deg,#dabb91,#8e6240)}
-  .cell:nth-child(5){background:linear-gradient(135deg,#d4ae84,#a07449)}
-  .cell:nth-child(6){background:linear-gradient(135deg,#e8caa3,#b88b5e)}
-
-  /* contato */
-  .contact{background:var(--brown-1);color:var(--cream-1);padding:120px 0}
-  .contact h2,.contact h3{color:var(--cream-1)}
-  .contact .ornament .line,.contact .ornament .diamond{background:var(--gold-soft)}
-  .contact .ornament .label{color:var(--gold-soft)}
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:50px}
-  .contact-info p{color:#e6d3bc;margin-bottom:30px;font-size:1.02rem}
-  .info-item{display:flex;gap:18px;margin-bottom:24px;align-items:flex-start}
-  .info-item .ic{
-    width:42px;height:42px;border:1px solid var(--gold-soft);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;color:var(--gold-soft);
-    flex-shrink:0;
-  }
-  .info-item .label{
-    font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:4px;
-  }
-  .info-item .value{color:var(--cream-1);font-size:1rem;line-height:1.5}
-  .info-item .value a{color:var(--cream-1);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
-  .info-item .value a:hover{border-color:var(--gold-soft)}
-
-  .map-wrap{
-    border-radius:2px;overflow:hidden;height:100%;min-height:420px;
-    border:1px solid rgba(216,183,119,.25);
-  }
-  .map-wrap iframe{width:100%;height:100%;border:0;filter:sepia(.2) saturate(.85)}
-
-  /* footer */
+  /* ===================================================================
+     FOOTER
+     =================================================================== */
   footer.site{
-    background:#2b1a12;color:#bda486;padding:50px 0 30px;text-align:center;
+    background:#1a0e07;color:#9c8264;padding:70px 30px 40px;text-align:center;
   }
-  footer.site .nav-logo{justify-content:center;color:var(--cream-1);margin-bottom:18px;display:inline-flex}
-  footer.site .nav-logo .mark{color:var(--cream-1)}
-  footer.site .socials{display:flex;justify-content:center;gap:18px;margin:20px 0 30px}
-  footer.site .socials a{
-    width:40px;height:40px;border:1px solid #5b3a29;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;color:var(--gold-soft);
+  footer.site img{height:50px;margin:0 auto 24px;filter:brightness(0) invert(1) sepia(.2) saturate(.6) brightness(1.2);opacity:.9}
+  footer.site .social{display:flex;justify-content:center;gap:14px;margin:24px 0}
+  footer.site .social a{
+    width:40px;height:40px;border:1px solid #4a3220;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;color:var(--gold);
     text-decoration:none;transition:all .3s;
   }
-  footer.site .socials a:hover{background:var(--gold);color:var(--brown-1);border-color:var(--gold)}
-  footer.site small{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#8c7355;display:block}
+  footer.site .social a:hover{background:var(--gold);color:var(--brown-1);border-color:var(--gold)}
+  footer.site small{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;display:block;color:#7a6444}
 
   /* whatsapp flutuante */
   .wa-float{
-    position:fixed;right:22px;bottom:22px;z-index:60;
-    width:58px;height:58px;border-radius:50%;
-    background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 14px 30px -10px rgba(37,211,102,.55);text-decoration:none;
+    position:fixed;right:24px;bottom:24px;z-index:60;
+    width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 14px 30px -10px rgba(37,211,102,.6);text-decoration:none;
     transition:transform .3s;
   }
   .wa-float:hover{transform:scale(1.08)}
-  .wa-float::after{
-    content:"";position:absolute;inset:-6px;border-radius:50%;
-    border:2px solid rgba(37,211,102,.45);animation:pulse 2s ease-out infinite;
-  }
+  .wa-float::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(37,211,102,.45);animation:pulse 2s ease-out infinite}
   @keyframes pulse{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.6);opacity:0}}
 
-  /* responsivo */
-  @media (max-width:900px){
-    .nav ul,.nav .cta{display:none}
-    .menu-btn{display:flex}
-    .nav.open ul{
-      display:flex;position:absolute;top:calc(100% + 12px);left:0;right:0;
-      background:var(--cream-1);flex-direction:column;gap:0;padding:14px 0;
-      box-shadow:0 18px 30px -20px rgba(58,36,24,.3);
-    }
-    .nav.open ul li{border-bottom:1px solid rgba(122,79,58,.08);text-align:center;padding:14px 0;width:100%}
-    .about-grid,.contact-grid{grid-template-columns:1fr;gap:50px}
-    .services-grid{grid-template-columns:1fr;gap:18px}
-    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}
-    .cell.wide{grid-column:span 2}
-    .cell.tall{grid-row:span 1}
-    section{padding:80px 0}
-    .map-wrap{min-height:320px}
-  }
-
+  /* reveal */
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
+
+  /* responsivo */
+  @media (max-width:980px){
+    .nav{grid-template-columns:auto 1fr auto}
+    .nav-left,.nav-right ul,.contact-pill{display:none}
+    .nav-center{justify-content:flex-start}
+    .nav-right{justify-content:flex-end}
+    .menu-btn{display:flex}
+    .nav.open .nav-right{
+      position:absolute;top:calc(100% + 12px);left:-30px;right:-30px;
+      background:var(--brown-1);padding:20px 0;flex-direction:column;justify-content:center;
+    }
+    .nav.open .nav-right ul{display:flex;flex-direction:column;gap:12px;text-align:center;width:100%}
+    .nav.open .contact-pill{display:inline-block;margin:14px auto 0}
+    .hero-cta-row{padding:0 24px;bottom:30px;gap:12px;flex-direction:column;align-items:center}
+    .cats-grid{grid-template-columns:repeat(2,1fr)}
+    .editorial{grid-template-columns:1fr;height:auto}
+    .editorial .pic{height:340px}
+    .editorial .overlay-text{top:50%}
+    .prices-grid{grid-template-columns:1fr}
+    .pkg,.pkg.reverse{grid-template-columns:1fr;direction:ltr;min-height:auto}
+    .pkg .img{height:300px;order:-1}
+    .pkg.reverse .img{order:-1}
+    .pkg .text{padding:60px 30px}
+    .c-grid{grid-template-columns:1fr;gap:40px}
+    .map{min-height:300px}
+  }
 </style>
 </head>
 <body>
 
 <header class="site" id="header">
   <div class="container nav" id="nav">
-    <a href="#top" class="nav-logo">
-      <span class="mark">Cleia</span>
-    </a>
-    <ul>
-      <li><a href="#sobre" class="link">Sobre</a></li>
-      <li><a href="#servicos" class="link">Serviços</a></li>
-      <li><a href="#galeria" class="link">Galeria</a></li>
-      <li><a href="#contato" class="link">Contato</a></li>
-    </ul>
-    <a href="https://wa.me/5584999036033" target="_blank" rel="noopener" class="cta">Agendar</a>
-    <button class="menu-btn" aria-label="Menu" id="menuBtn">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-    </button>
-  </div>
-</header>
-
-<section class="hero" id="top">
-  <div class="hero-inner">
-    <div class="eyebrow">Natal · Rio Grande do Norte</div>
-
-    <img class="hero-logo" src="assets/images/logo-cleia.png" alt="Cleia · Salão de Beleza" />
-
-    <h1>onde sua beleza encontra cuidado</h1>
-    <p class="lead">Um espaço pensado para você se reconectar com a sua versão mais elegante. Cabelo, cor e finalização com mãos cuidadosas e olhar atento.</p>
-
-    <div class="actions">
-      <a href="https://wa.me/5584999036033?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener" class="btn btn-primary">Agendar pelo WhatsApp</a>
-      <a href="#servicos" class="btn btn-ghost">Conheça os serviços</a>
-    </div>
-  </div>
-
-  <div class="scroll-hint" aria-hidden="true">
-    <span>Role</span><span class="bar"></span>
-  </div>
-</section>
-
-<section class="about" id="sobre">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-photo reveal">
-        <div class="frame"></div>
-        <img src="assets/images/cleia.jpg" alt="Cléia, fundadora do salão" onerror="this.remove()"/>
-        <div class="placeholder">retrato da Cléia</div>
-      </div>
-
-      <div class="about-text reveal">
-        <div class="eyebrow">A profissional</div>
-        <h2>Conheça Cléia</h2>
-        <p>Há mais de duas décadas dedicada à arte de cuidar de cabelos, Cléia construiu um espaço onde técnica, escuta e bom gosto caminham juntos. Cada cliente é recebida como única — porque é.</p>
-        <p>Do corte que valoriza traços às cores que respeitam os fios, todo trabalho passa pelo olhar atento de quem entende que beleza é, antes de tudo, sentir-se bem consigo mesma.</p>
-        <div class="ornament" style="justify-content:flex-start;margin-left:0">
-          <span class="diamond"></span>
-          <span class="line" style="width:80px"></span>
-        </div>
-        <div class="about-sign">— Cléia Neres</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="services" id="servicos">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="label">O que oferecemos</span><span class="diamond"></span><span class="line"></span></div>
-      <h2>Serviços que celebram você</h2>
-      <p>Procedimentos completos para cabelo, com produtos selecionados e técnicas atualizadas — sempre respeitando a saúde dos seus fios.</p>
-    </div>
-
-    <div class="services-grid">
-      <div class="service reveal">
-        <div class="icon">
-          <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="14" cy="34" r="6"/><circle cx="34" cy="34" r="6"/><path d="M19 30 L42 8"/><path d="M29 30 L6 8"/></svg>
-        </div>
-        <h3>Cortes</h3>
-        <p>Cortes femininos modernos e clássicos, desenhados para valorizar o formato do rosto e o estilo de cada cliente.</p>
-      </div>
-
-      <div class="service reveal">
-        <div class="icon">
-          <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M24 6 C18 14 12 18 12 28 a12 12 0 0 0 24 0 C36 18 30 14 24 6 Z"/><circle cx="24" cy="29" r="4"/></svg>
-        </div>
-        <h3>Coloração</h3>
-        <p>Tinturas, retoque de raiz e correções de cor com produtos profissionais que cuidam enquanto transformam.</p>
-      </div>
-
-      <div class="service reveal">
-        <div class="icon">
-          <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M10 30 q14 -16 28 0"/><path d="M14 36 q10 -10 20 0"/><path d="M18 42 q6 -6 12 0"/><circle cx="24" cy="14" r="3"/></svg>
-        </div>
-        <h3>Luzes &amp; Mechas</h3>
-        <p>Mechas, luzes, balayage e iluminados — esquemas personalizados para um resultado natural e luminoso.</p>
-      </div>
-
-      <div class="service reveal">
-        <div class="icon">
-          <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 8 q10 8 0 16 q-10 8 0 16"/><path d="M22 8 q10 8 0 16 q-10 8 0 16"/><path d="M30 8 q10 8 0 16 q-10 8 0 16"/></svg>
-        </div>
-        <h3>Hidratação</h3>
-        <p>Tratamentos de hidratação, nutrição e reconstrução para devolver brilho, maciez e força aos seus fios.</p>
-      </div>
-
-      <div class="service reveal">
-        <div class="icon">
-          <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M10 24 C 18 12 30 12 38 24"/><path d="M10 24 C 18 36 30 36 38 24"/><circle cx="24" cy="24" r="3"/></svg>
-        </div>
-        <h3>Escova &amp; Finalização</h3>
-        <p>Escovas modeladas, finalizações para o dia a dia ou eventos especiais, com produtos que protegem do calor.</p>
-      </div>
-
-      <div class="service reveal">
-        <div class="icon">
-          <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 24 h32"/><path d="M14 18 l-6 6 6 6"/><path d="M34 18 l6 6 -6 6"/><circle cx="24" cy="24" r="2.5"/></svg>
-        </div>
-        <h3>Alisamento &amp; Progressiva</h3>
-        <p>Tratamentos de alinhamento e redução de volume, com fórmulas modernas pensadas no cuidado e durabilidade.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="gallery" id="galeria">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="label">Nosso espaço</span><span class="diamond"></span><span class="line"></span></div>
-      <h2>O salão por dentro</h2>
-      <p>Um ambiente acolhedor, pensado para que cada visita seja uma pausa para você.</p>
-    </div>
-
-    <div class="gallery-grid reveal">
-      <div class="cell tall"><img src="assets/images/salao-1.jpg" alt="Ambiente do salão" onerror="this.remove()"><div class="ph">foto 1</div></div>
-      <div class="cell"><img src="assets/images/salao-2.jpg" alt="Detalhe do salão" onerror="this.remove()"><div class="ph">foto 2</div></div>
-      <div class="cell wide"><img src="assets/images/salao-3.jpg" alt="Estação de atendimento" onerror="this.remove()"><div class="ph">foto 3</div></div>
-      <div class="cell"><img src="assets/images/salao-4.jpg" alt="Recepção" onerror="this.remove()"><div class="ph">foto 4</div></div>
-      <div class="cell"><img src="assets/images/salao-5.jpg" alt="Espaço de espera" onerror="this.remove()"><div class="ph">foto 5</div></div>
-      <div class="cell tall"><img src="assets/images/salao-6.jpg" alt="Detalhe decorativo" onerror="this.remove()"><div class="ph">foto 6</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="contact" id="contato">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="label">Visite-nos</span><span class="diamond"></span><span class="line"></span></div>
-      <h2 style="color:var(--cream-1)">Vamos nos encontrar?</h2>
-    </div>
-
-    <div class="contact-grid">
-      <div class="contact-info reveal">
-        <p>Estamos no Alecrim, em Natal/RN, prontos para receber você. Agende seu horário pelo WhatsApp e garanta um atendimento pensado pra você.</p>
-
-        <div class="info-item">
-          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s-7-7.5-7-13a7 7 0 0 1 14 0c0 5.5-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
-          <div>
-            <div class="label">Endereço</div>
-            <div class="value">R. Pinheiro Borges, 640<br>Alecrim — Natal/RN<br>CEP 59030-370</div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5a2 2 0 0 1 2-2h2l2 5-2 1a12 12 0 0 0 6 6l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 3 5Z"/></svg></div>
-          <div>
-            <div class="label">Telefone · WhatsApp</div>
-            <div class="value"><a href="https://wa.me/5584999036033" target="_blank" rel="noopener">(84) 99903-6033</a></div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
-          <div>
-            <div class="label">E-mail</div>
-            <div class="value"><a href="mailto:contato@cleianeres.com.br">contato@cleianeres.com.br</a></div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <div>
-            <div class="label">Atendimento</div>
-            <div class="value">Segunda a Sábado<br>9h às 19h</div>
-          </div>
-        </div>
-
-        <a href="https://wa.me/5584999036033?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener" class="btn" style="background:var(--gold);color:var(--brown-1);margin-top:14px">Agendar agora</a>
-      </div>
-
-      <div class="map-wrap reveal">
-        <iframe
-          src="https://www.google.com/maps?q=R.+Pinheiro+Borges,+640+-+Alecrim,+Natal+-+RN,+59030-370&output=embed"
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa Cléia Salão de Beleza"></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="site">
-  <div class="container">
-    <a href="#top" class="nav-logo"><span class="mark">Cleia</span></a>
-    <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="label">Salão de Beleza</span><span class="diamond"></span><span class="line"></span></div>
-    <div class="socials">
+    <div class="nav-left">
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </a>
       <a href="https://wa.me/5584999036033" target="_blank" rel="noopener" aria-label="WhatsApp">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.5A11 11 0 0 0 3.6 18.2L2 22l3.9-1.5A11 11 0 1 0 20 3.5Zm-8 18a9 9 0 0 1-4.6-1.3l-.3-.2-2.3.9.9-2.3-.2-.3A9 9 0 1 1 12 21.5Zm5-6.6c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.7-3.2c-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5l-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4a3.3 3.3 0 0 0-1 2.4c0 1.4 1 2.8 1.2 3a11 11 0 0 0 4.2 3.7c2.5 1 2.5.7 3 .6a2.7 2.7 0 0 0 1.8-1.3c.2-.4.2-.8.1-.9s-.2-.2-.5-.3Z"/></svg>
       </a>
-      <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-      </a>
-      <a href="mailto:contato@cleianeres.com.br" aria-label="E-mail">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-      </a>
     </div>
-    <small>© 2026 Cléia Salão de Beleza · Natal/RN</small>
+    <div class="nav-center">
+      <a href="#top"><img src="assets/images/logo-cleia.png" alt="Cleia · Salão de Beleza"></a>
+    </div>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#sobre" class="link">Sobre</a></li>
+        <li><a href="#servicos" class="link">Serviços</a></li>
+        <li><a href="#galeria" class="link">Galeria</a></li>
+        <li><a href="#contato" class="link">Contato</a></li>
+      </ul>
+      <a href="https://wa.me/5584999036033" target="_blank" rel="noopener" class="contact-pill">Agendar</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
   </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="top">
+  <div class="bg"></div>
+  <div class="hero-content">
+    <div class="small-caps eyebrow">Natal · Rio Grande do Norte</div>
+    <h1>Salão de <em>beleza</em><br>elegante &amp; acolhedor</h1>
+    <p class="lead">Cuidado profissional para o seu cabelo, em um espaço pensado para você sentir-se única.</p>
+  </div>
+  <div class="hero-cta-row">
+    <a href="https://wa.me/5584999036033?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio.">Agendar agora</a>
+    <a href="#servicos">Conheça os serviços</a>
+  </div>
+</section>
+
+<!-- ========== INTRO ========== -->
+<section class="intro">
+  <div class="small-caps">Desde 2010 · Cuidado feito à mão</div>
+  <p>Há mais de uma década recebendo mulheres que buscam mais do que um cabelo bonito — um momento só seu. No salão da Cléia cada visita é pensada com atenção: do café que recebe ao último toque de finalização.</p>
+  <div class="ornament-line"></div>
+</section>
+
+<!-- ========== CATEGORIAS ========== -->
+<section class="cats" id="servicos">
+  <div class="cats-grid reveal">
+    <a href="#precos" class="cat">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80" alt="Cortes" loading="lazy"></div>
+      <div class="label">Cortes</div>
+    </a>
+    <a href="#precos" class="cat">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Coloração" loading="lazy"></div>
+      <div class="label">Coloração</div>
+    </a>
+    <a href="#precos" class="cat">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&q=80" alt="Luzes" loading="lazy"></div>
+      <div class="label">Luzes &amp; Mechas</div>
+    </a>
+    <a href="#precos" class="cat">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&q=80" alt="Tratamentos" loading="lazy"></div>
+      <div class="label">Tratamentos</div>
+    </a>
+  </div>
+</section>
+
+<!-- ========== ABOUT (faixa escura) ========== -->
+<section class="about-dark" id="sobre">
+  <div class="container">
+    <div class="small-caps">Sobre nós</div>
+    <h2>A arte de revelar a sua <em>melhor versão</em></h2>
+    <p>Cada cabeça é única. É por isso que cada atendimento começa com uma conversa: entender seu estilo, sua rotina, o que faz você se sentir você mesma. Só então as mãos da Cléia entram em ação — com técnica, cuidado e produtos que respeitam seus fios.</p>
+    <a href="#contato" class="more">Saiba mais</a>
+  </div>
+</section>
+
+<!-- ========== EDITORIAL SPLIT ========== -->
+<section class="editorial">
+  <div class="pic left"></div>
+  <div class="pic right"></div>
+  <div class="overlay-text"><span>experiência &amp; cuidado</span></div>
+</section>
+
+<!-- ========== PRICE LIST ========== -->
+<section class="prices" id="precos">
+  <div class="head">
+    <div class="small-caps">Serviços &amp; valores</div>
+    <h2 style="font-size:clamp(2rem,3.6vw,2.8rem);margin-top:14px;font-style:italic;color:var(--brown-2)">Tabela de serviços</h2>
+  </div>
+  <div class="prices-grid reveal">
+    <div class="price">
+      <h4>Corte feminino</h4>
+      <div class="val">a partir de R$ 90</div>
+      <div class="desc">consulta · lavagem · corte · finalização</div>
+    </div>
+    <div class="price">
+      <h4>Coloração</h4>
+      <div class="val">a partir de R$ 180</div>
+      <div class="desc">tinturas e retoque de raiz</div>
+    </div>
+    <div class="price">
+      <h4>Luzes &amp; mechas</h4>
+      <div class="val">a partir de R$ 280</div>
+      <div class="desc">balayage, iluminado, mechas tradicionais</div>
+    </div>
+    <div class="price">
+      <h4>Hidratação</h4>
+      <div class="val">a partir de R$ 80</div>
+      <div class="desc">hidratação · nutrição · reconstrução</div>
+    </div>
+    <div class="price">
+      <h4>Escova &amp; finalização</h4>
+      <div class="val">a partir de R$ 60</div>
+      <div class="desc">para o dia a dia ou ocasiões especiais</div>
+    </div>
+    <div class="price">
+      <h4>Progressiva &amp; alisamento</h4>
+      <div class="val">a partir de R$ 250</div>
+      <div class="desc">redução de volume e alinhamento</div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:40px;color:var(--brown-4);font-size:.9rem">* valores sujeitos a alteração conforme comprimento e procedimento. Consulte pelo WhatsApp.</p>
+</section>
+
+<!-- ========== PACKAGES — GALERIA EDITORIAL ========== -->
+<section class="packages" id="galeria">
+  <div class="head">
+    <div class="small-caps">Nosso espaço</div>
+    <h2 style="font-size:clamp(2rem,3.6vw,2.8rem);margin-top:14px;font-style:italic;color:var(--brown-2)">O salão por dentro</h2>
+  </div>
+
+  <div class="pkg p1">
+    <div class="text">
+      <div class="small-caps">Recepção</div>
+      <h3>Um <em>respiro</em> elegante<br>logo na chegada</h3>
+      <p>Ambiente pensado para você desacelerar do mundo lá fora. Iluminação suave, aromas marcantes e detalhes que tornam a espera quase tão prazerosa quanto o atendimento.</p>
+    </div>
+    <div class="img"></div>
+  </div>
+
+  <div class="pkg p2 reverse">
+    <div class="text">
+      <div class="small-caps">Estações</div>
+      <h3>Onde a <em>magia</em><br>acontece</h3>
+      <p>Estações de atendimento equipadas para conforto e precisão, com produtos profissionais selecionados a dedo para cuidar bem dos seus fios.</p>
+    </div>
+    <div class="img"></div>
+  </div>
+
+  <div class="pkg p3">
+    <div class="text">
+      <div class="small-caps">Detalhes</div>
+      <h3>No <em>cuidado</em><br>moram os detalhes</h3>
+      <p>Cada cantinho carrega a assinatura da casa: do pôr da mesa ao café que chega na hora certa. É essa atenção que faz toda a diferença.</p>
+    </div>
+    <div class="img"></div>
+  </div>
+</section>
+
+<!-- ========== CONTATO ========== -->
+<section class="contact" id="contato">
+  <div class="head">
+    <div class="small-caps">Vamos nos encontrar</div>
+    <h2>Visite o <em>salão</em></h2>
+  </div>
+  <div class="c-grid">
+    <div class="c-info reveal">
+      <div class="c-row">
+        <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s-7-7.5-7-13a7 7 0 0 1 14 0c0 5.5-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <div>
+          <div class="label">Endereço</div>
+          <div class="value">R. Pinheiro Borges, 640<br>Alecrim — Natal/RN<br>CEP 59030-370</div>
+        </div>
+      </div>
+      <div class="c-row">
+        <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5a2 2 0 0 1 2-2h2l2 5-2 1a12 12 0 0 0 6 6l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 3 5Z"/></svg></div>
+        <div>
+          <div class="label">Telefone · WhatsApp</div>
+          <div class="value"><a href="https://wa.me/5584999036033" target="_blank" rel="noopener">(84) 99903-6033</a></div>
+        </div>
+      </div>
+      <div class="c-row">
+        <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <div>
+          <div class="label">E-mail</div>
+          <div class="value"><a href="mailto:contato@cleianeres.com.br">contato@cleianeres.com.br</a></div>
+        </div>
+      </div>
+      <div class="c-row">
+        <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div>
+          <div class="label">Atendimento</div>
+          <div class="value">Segunda a Sábado<br>9h às 19h</div>
+        </div>
+      </div>
+      <a href="https://wa.me/5584999036033?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener" class="c-cta">Agendar pelo WhatsApp</a>
+    </div>
+    <div class="map reveal">
+      <iframe src="https://www.google.com/maps?q=R.+Pinheiro+Borges,+640+-+Alecrim,+Natal+-+RN,+59030-370&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa Cléia Salão de Beleza"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site">
+  <img src="assets/images/logo-cleia.png" alt="Cleia · Salão de Beleza">
+  <div class="social">
+    <a href="https://wa.me/5584999036033" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.5A11 11 0 0 0 3.6 18.2L2 22l3.9-1.5A11 11 0 1 0 20 3.5Zm-3 11.4c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.7-3.2c-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5l-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4a3.3 3.3 0 0 0-1 2.4c0 1.4 1 2.8 1.2 3a11 11 0 0 0 4.2 3.7c2.5 1 2.5.7 3 .6a2.7 2.7 0 0 0 1.8-1.3c.2-.4.2-.8.1-.9s-.2-.2-.5-.3Z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+    </a>
+    <a href="mailto:contato@cleianeres.com.br" aria-label="E-mail">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+    </a>
+  </div>
+  <small>© 2026 Cléia Salão de Beleza · Natal/RN</small>
 </footer>
 
 <a class="wa-float" href="https://wa.me/5584999036033?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp">
@@ -526,7 +588,7 @@
 
 <script>
   const header = document.getElementById('header');
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 80);
   window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
   const nav = document.getElementById('nav');
@@ -535,9 +597,8 @@
 
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:.14});
+  }, {threshold:.12});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
-
 </body>
 </html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logo Cleia - Salao de Beleza</title>
+
+  <style>
+    :root {
+      --bege-fundo: #f4e6d3;
+      --bege-claro: #fff7eb;
+      --marrom: #5a321b;
+      --marrom-escuro: #3a2013;
+      --dourado: #b98a3d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, var(--bege-claro) 0%, var(--bege-fundo) 65%, #ead2b7 100%);
+      font-family: Arial, sans-serif;
+    }
+
+    .logo-area {
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px;
+    }
+
+    .logo {
+      text-align: center;
+      transform: translateY(10px);
+    }
+
+    .brand-name {
+      margin: 0;
+      font-family: "Didot", "Bodoni 72", "Bodoni MT", "Times New Roman", serif;
+      font-size: clamp(82px, 16vw, 190px);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.055em;
+      color: var(--marrom);
+      position: relative;
+      text-transform: none;
+    }
+
+    .brand-name .c {
+      display: inline-block;
+      transform: scaleX(1.06);
+    }
+
+    .brand-name .l {
+      display: inline-block;
+      margin-left: -0.05em;
+      transform: scaleY(1.08);
+    }
+
+    .brand-name .e {
+      display: inline-block;
+      margin-left: -0.02em;
+      position: relative;
+    }
+
+    .brand-name .e::after {
+      content: "";
+      position: absolute;
+      left: 0.14em;
+      top: 0.52em;
+      width: 0.58em;
+      height: 0.018em;
+      background: var(--marrom);
+      transform: rotate(-18deg);
+      border-radius: 999px;
+      opacity: 0.9;
+    }
+
+    .brand-name .i {
+      display: inline-block;
+      margin-left: -0.01em;
+      position: relative;
+    }
+
+    .brand-name .i::before {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      top: -0.38em;
+      transform: translateX(-50%);
+      font-size: 0.22em;
+      color: var(--dourado);
+      line-height: 1;
+    }
+
+    .brand-name .a {
+      display: inline-block;
+      margin-left: -0.03em;
+      transform: scaleX(0.94);
+    }
+
+    .subtitle-row {
+      margin-top: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-family: "Montserrat", "Avenir Next", Arial, sans-serif;
+      font-size: clamp(16px, 2.2vw, 30px);
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--marrom);
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .line-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--dourado);
+    }
+
+    .line {
+      width: clamp(70px, 10vw, 150px);
+      height: 1px;
+      background: var(--dourado);
+    }
+
+    .spark {
+      font-size: clamp(18px, 2vw, 28px);
+      line-height: 1;
+      color: var(--dourado);
+    }
+
+    @media (max-width: 700px) {
+      .logo-area {
+        padding: 36px;
+      }
+
+      .subtitle-row {
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .subtitle {
+        letter-spacing: 0.22em;
+      }
+
+      .line-wrap {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="logo-area">
+    <section class="logo" aria-label="Logo Cleia Salao de Beleza">
+      <h1 class="brand-name">
+        <span class="c">C</span><span class="l">l</span><span class="e">e</span><span class="i">i</span><span class="a">a</span>
+      </h1>
+
+      <div class="subtitle-row">
+        <div class="line-wrap">
+          <span class="spark">✦</span>
+          <span class="line"></span>
+        </div>
+
+        <p class="subtitle">Salao de Beleza</p>
+
+        <div class="line-wrap">
+          <span class="line"></span>
+          <span class="spark">✦</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

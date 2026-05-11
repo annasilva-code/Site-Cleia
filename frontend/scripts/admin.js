@@ -253,7 +253,9 @@ function renderMainBookingList(bookings = allBookings, label = "Todos os agendam
         <p class="admin-booking-meta">
           ${formatDateBR(booking.date)} às ${booking.time} • ${escapeHtml(
             booking.serviceName
-          )} • origem: ${escapeHtml(booking.source)}
+          )}${booking.totalFmt ? " • " + booking.totalFmt : ""}${
+            booking.totalDurationMinutes ? " • " + booking.totalDurationMinutes + "min" : ""
+          } • origem: ${escapeHtml(booking.source)}
         </p>
 
         <div class="admin-booking-actions">
@@ -361,7 +363,18 @@ async function loadBookings() {
     return;
   }
 
-  allBookings = result.data || [];
+  allBookings = (result.data || []).map((b) => {
+    const list = Array.isArray(b.services) ? b.services : [];
+    return {
+      ...b,
+      services: list,
+      serviceName: list.length ? list.map((s) => s.name).join(" + ") : (b.serviceName || "—"),
+      serviceId: list[0] ? list[0].id : (b.serviceId || null),
+      totalFmt: typeof b.totalCents === "number"
+        ? "R$ " + (b.totalCents / 100).toFixed(2).replace(".", ",")
+        : ""
+    };
+  });
   refreshDashboardViews();
 }
 

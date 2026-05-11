@@ -33,7 +33,8 @@ const PORT = Number(process.env.PORT || 3000);
 const DATABASE_URL =
   process.env.DATABASE_URL ||
   "postgresql://postgres:postgres@localhost:5432/cleia_neres";
-const FRONTEND_DIR = path.resolve(__dirname, "../../frontend");
+const FRONTEND_DIR = path.resolve(__dirname, "../../");
+const ADMIN_DIR = path.resolve(__dirname, "../../frontend");
 
 const ADMIN_NAME = process.env.ADMIN_NAME || "Cleia Neres";
 const ADMIN_USER = (process.env.ADMIN_USER || "admin").toLowerCase();
@@ -138,11 +139,13 @@ async function ensureSchema() {
     CREATE TABLE IF NOT EXISTS services (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL UNIQUE,
+      description TEXT NOT NULL DEFAULT '',
       duration_minutes INTEGER NOT NULL DEFAULT 60,
       price_cents INTEGER NOT NULL DEFAULT 0,
       is_active BOOLEAN NOT NULL DEFAULT TRUE
     );
   `);
+  await pool.query(`ALTER TABLE services ADD COLUMN IF NOT EXISTS description TEXT NOT NULL DEFAULT ''`);
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS admins (
@@ -159,7 +162,9 @@ async function ensureSchema() {
       id TEXT PRIMARY KEY,
       client_name TEXT NOT NULL,
       client_phone TEXT NOT NULL,
-      service_id INTEGER NOT NULL REFERENCES services(id),
+      service_id INTEGER REFERENCES services(id),
+      total_cents INTEGER NOT NULL DEFAULT 0,
+      total_duration_minutes INTEGER NOT NULL DEFAULT 0,
       booking_date DATE NOT NULL,
       booking_time TIME NOT NULL,
       notes TEXT NOT NULL DEFAULT '',
@@ -172,17 +177,39 @@ async function ensureSchema() {
       UNIQUE (booking_date, booking_time)
     );
   `);
+  await pool.query(`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS total_cents INTEGER NOT NULL DEFAULT 0`);
+  await pool.query(`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS total_duration_minutes INTEGER NOT NULL DEFAULT 0`);
+  await pool.query(`ALTER TABLE bookings ALTER COLUMN service_id DROP NOT NULL`);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS booking_services (
+      booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+      service_id INTEGER NOT NULL REFERENCES services(id),
+      price_cents INTEGER NOT NULL,
+      duration_minutes INTEGER NOT NULL,
+      PRIMARY KEY (booking_id, service_id)
+    );
+  `);
+
+  // desativa nomes antigos (sem acento) gerados em versões anteriores
+  await pool.query(
+    `UPDATE services SET is_active = FALSE
+     WHERE name IN ('Coloracao', 'Cronograma 4 sessoes', 'Hidratacao + Escova')`
+  );
 
   await pool.query(
-    `INSERT INTO services (name, duration_minutes, price_cents)
+    `INSERT INTO services (name, description, duration_minutes, price_cents)
      VALUES
-      ('Corte Feminino', 60, 4000),
-      ('Corte Masculino', 40, 2500),
-      ('Coloracao', 120, 8000),
-      ('Cronograma 4 sessoes', 90, 15000),
-      ('Escova', 40, 3000),
-      ('Hidratacao + Escova', 60, 5000)
-     ON CONFLICT (name) DO NOTHING`
+      ('Corte Feminino',     'Lavagem, corte e finalização para todos os comprimentos.',                60, 4000),
+      ('Corte Masculino',    'Corte masculino moderno ou clássico, com finalização.',                   30, 2500),
+      ('Coloração',          'Tintura completa ou retoque de raiz com produtos profissionais.',        120, 8000),
+      ('Cronograma 4 sessões','Pacote de 4 sessões de hidratação, nutrição e reconstrução.',           90, 15000),
+      ('Escova',             'Escova modelada para o dia a dia ou ocasiões especiais.',                 40, 3000),
+      ('Escova + Hidratação','Hidratação profunda combinada com escova de finalização.',                60, 5000)
+     ON CONFLICT (name) DO UPDATE
+       SET description = EXCLUDED.description,
+           duration_minutes = EXCLUDED.duration_minutes,
+           price_cents = EXCLUDED.price_cents`
   );
 
   await pool.query(
@@ -196,10 +223,10 @@ async function ensureSchema() {
 
 async function getServices() {
   const result = await pool.query(
-    `SELECT id, name, duration_minutes, price_cents
+    `SELECT id, name, description, duration_minutes AS "durationMinutes", price_cents AS "priceCents"
      FROM services
      WHERE is_active = TRUE
-     ORDER BY name ASC`
+     ORDER BY id ASC`
   );
   return result.rows;
 }
@@ -233,6 +260,15 @@ async function getAvailability(date) {
   return { ok: true, date: toDateString(parsed), slots };
 }
 
+function normalizeServiceIds(payload) {
+  let raw = payload.serviceIds;
+  if (!Array.isArray(raw) && payload.serviceId !== undefined) raw = [payload.serviceId];
+  if (!Array.isArray(raw)) return null;
+  const ids = raw.map(Number).filter((n) => Number.isInteger(n) && n > 0);
+  if (ids.length === 0) return null;
+  return Array.from(new Set(ids));
+}
+
 function validateBookingPayload(payload) {
   const errors = [];
 
@@ -249,8 +285,9 @@ function validateBookingPayload(payload) {
     errors.push("Telefone inválido");
   }
 
-  if (!Number.isInteger(Number(payload.serviceId))) {
-    errors.push("Serviço inválido");
+  const serviceIds = normalizeServiceIds(payload);
+  if (!serviceIds) {
+    errors.push("Selecione ao menos um serviço");
   }
 
   const parsedDate = parseDate(payload.date);
@@ -279,18 +316,23 @@ async function createBooking(payload, source = "cliente") {
     return { ok: false, status: 400, errors: validationErrors };
   }
 
-  const serviceId = Number(payload.serviceId);
+  const serviceIds = normalizeServiceIds(payload);
   const date = String(payload.date);
   const time = String(payload.time);
 
   const serviceResult = await pool.query(
-    `SELECT id FROM services WHERE id = $1 AND is_active = TRUE`,
-    [serviceId]
+    `SELECT id, name, duration_minutes, price_cents
+     FROM services
+     WHERE id = ANY($1::int[]) AND is_active = TRUE`,
+    [serviceIds]
   );
 
-  if (serviceResult.rowCount === 0) {
+  if (serviceResult.rowCount !== serviceIds.length) {
     return { ok: false, status: 400, errors: ["Serviço não encontrado"] };
   }
+
+  const totalDuration = serviceResult.rows.reduce((sum, r) => sum + r.duration_minutes, 0);
+  const totalCents = serviceResult.rows.reduce((sum, r) => sum + r.price_cents, 0);
 
   const availability = await getAvailability(date);
   if (!availability.ok) {
@@ -302,22 +344,39 @@ async function createBooking(payload, source = "cliente") {
     return { ok: false, status: 409, errors: ["Horário indisponível"] };
   }
 
+  const startMin = timeToMinutes(time);
+  const endMin = startMin + totalDuration;
+  if (endMin > WORK_END_MIN) {
+    return { ok: false, status: 409, errors: ["Os serviços não cabem no horário escolhido. Tente outro horário ou reduza."] };
+  }
+  for (let m = startMin; m < endMin; m += SLOT_INTERVAL_MIN) {
+    const t = minutesToTime(m);
+    const s = availability.slots.find((x) => x.time === t);
+    if (!s || !s.available) {
+      return { ok: false, status: 409, errors: ["Há um conflito com outro agendamento próximo. Escolha outro horário."] };
+    }
+  }
+
   const id = randomUUID();
   const notes = String(payload.notes || "").trim();
+  const client = await pool.connect();
 
   try {
-    const inserted = await pool.query(
+    await client.query("BEGIN");
+
+    await client.query(
       `INSERT INTO bookings (
-        id, client_name, client_phone, service_id,
+        id, client_name, client_phone, service_id, total_cents, total_duration_minutes,
         booking_date, booking_time, notes, status, source, updated_at
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, 'pendente', $8, NOW())
-      RETURNING id`,
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'pendente', $10, NOW())`,
       [
         id,
         String(payload.clientName).trim(),
         normalizePhone(payload.clientPhone),
-        serviceId,
+        serviceResult.rows[0].id,
+        totalCents,
+        totalDuration,
         date,
         `${time}:00`,
         notes,
@@ -325,12 +384,24 @@ async function createBooking(payload, source = "cliente") {
       ]
     );
 
-    return { ok: true, id: inserted.rows[0].id };
+    for (const row of serviceResult.rows) {
+      await client.query(
+        `INSERT INTO booking_services (booking_id, service_id, price_cents, duration_minutes)
+         VALUES ($1, $2, $3, $4)`,
+        [id, row.id, row.price_cents, row.duration_minutes]
+      );
+    }
+
+    await client.query("COMMIT");
+    return { ok: true, id, totalCents, totalDuration };
   } catch (error) {
+    await client.query("ROLLBACK");
     if (String(error.message).includes("unique") || error.code === "23505") {
       return { ok: false, status: 409, errors: ["Horário já reservado"] };
     }
     throw error;
+  } finally {
+    client.release();
   }
 }
 
@@ -357,18 +428,31 @@ async function listBookings(filters = {}) {
       b.id,
       b.client_name AS "clientName",
       b.client_phone AS "clientPhone",
-      b.service_id AS "serviceId",
-      s.name AS "serviceName",
+      b.total_cents AS "totalCents",
+      b.total_duration_minutes AS "totalDurationMinutes",
       to_char(b.booking_date, 'YYYY-MM-DD') AS date,
       to_char(b.booking_time, 'HH24:MI') AS time,
       b.notes,
       b.status,
       b.source,
       b.created_at AS "createdAt",
-      b.updated_at AS "updatedAt"
+      b.updated_at AS "updatedAt",
+      COALESCE(
+        json_agg(
+          json_build_object(
+            'id', s.id,
+            'name', s.name,
+            'priceCents', bs.price_cents,
+            'durationMinutes', bs.duration_minutes
+          ) ORDER BY s.name
+        ) FILTER (WHERE s.id IS NOT NULL),
+        '[]'::json
+      ) AS services
     FROM bookings b
-    INNER JOIN services s ON s.id = b.service_id
+    LEFT JOIN booking_services bs ON bs.booking_id = b.id
+    LEFT JOIN services s ON s.id = bs.service_id
     ${whereSql}
+    GROUP BY b.id
     ORDER BY b.booking_date ASC, b.booking_time ASC`,
     values
   );
@@ -652,7 +736,27 @@ async function handleRequest(req, res) {
     }
   }
 
-  const served = await serveStatic(req, res, pathname === "/admin" ? "/admin.html" : pathname);
+  if (pathname === "/admin" || pathname === "/admin.html") {
+    try {
+      const file = await readFile(path.resolve(ADMIN_DIR, "admin.html"));
+      sendRaw(res, 200, file, "text/html; charset=utf-8");
+      return;
+    } catch {}
+  }
+  if (pathname.startsWith("/styles/") || pathname.startsWith("/scripts/")) {
+    try {
+      const fp = path.resolve(ADMIN_DIR, `.${pathname}`);
+      if (fp.startsWith(ADMIN_DIR)) {
+        const file = await readFile(fp);
+        const ext = path.extname(fp).toLowerCase();
+        const ct = ext === ".css" ? "text/css; charset=utf-8" : "application/javascript; charset=utf-8";
+        sendRaw(res, 200, file, ct);
+        return;
+      }
+    } catch {}
+  }
+
+  const served = await serveStatic(req, res, pathname);
   if (served) return;
 
   sendJson(res, 404, { errors: ["Rota não encontrada"] });

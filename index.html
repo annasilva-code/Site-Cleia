@@ -382,6 +382,7 @@
 
   /* modal */
   .modal{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:24px}
+  .modal[hidden]{display:none !important}
   .modal-backdrop{position:absolute;inset:0;background:rgba(43,26,18,.65);backdrop-filter:blur(4px)}
   .modal-card{
     position:relative;background:var(--cream);width:100%;max-width:520px;max-height:90vh;
@@ -389,7 +390,7 @@
   }
   .modal-close{
     position:absolute;top:16px;right:18px;background:none;border:0;
-    font-size:1.8rem;cursor:pointer;color:var(--brown-3);line-height:1;
+    font-size:1.8rem;cursor:pointer;color:var(--brown-3);line-height:1;z-index:3;
   }
   .modal-step h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.8rem;margin:14px 0 22px;color:var(--brown-2)}
   .modal-step label{

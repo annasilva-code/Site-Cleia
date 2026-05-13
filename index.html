@@ -785,6 +785,15 @@
     ? location.origin
     : 'http://localhost:3000';
 
+  async function parseApiJson(response){
+    const contentType = response.headers.get('content-type') || '';
+    const raw = await response.text();
+    if (!contentType.includes('application/json')) {
+      throw new Error('Resposta inválida da API');
+    }
+    return JSON.parse(raw);
+  }
+
   const fmt = (cents) => 'R$ ' + (cents/100).toFixed(2).replace('.', ',');
   const fmtMin = (m) => m >= 60 ? `${Math.floor(m/60)}h${m%60? ' '+(m%60)+'min':''}` : `${m}min`;
 
@@ -800,13 +809,13 @@
     const grid = document.getElementById('services-grid');
     try {
       const r = await fetch(`${API_BASE}/api/services`);
-      const json = await r.json();
+      const json = await parseApiJson(r);
       state.services = json.data || [];
       renderServices();
     } catch (e) {
       grid.innerHTML = `<div class="price" style="grid-column:1/-1;text-align:center;color:#a33">
-        Não foi possível carregar os serviços. Verifique se o backend está rodando.<br>
-        <small style="color:var(--brown-4);font-size:.8rem">${e.message}</small>
+        Não foi possível carregar os serviços agora.<br>
+        <small style="color:var(--brown-4);font-size:.8rem">Confira se o backend está ativo em ${API_BASE}.</small>
       </div>`;
     }
   }
@@ -941,7 +950,7 @@
     msg.textContent = '';
     try {
       const r = await fetch(`${API_BASE}/api/availability?date=${encodeURIComponent(date)}`);
-      const json = await r.json();
+      const json = await parseApiJson(r);
       if (!r.ok) throw new Error((json.errors||['Erro']).join(', '));
       const slots = json.data.slots || [];
       const totalMin = getTotals().minutes;
@@ -972,7 +981,7 @@
       msg.textContent = `Duração estimada: ${fmtMin(totalMin)}.`;
     } catch (e) {
       wrap.innerHTML = '';
-      msg.textContent = 'Erro: ' + e.message;
+      msg.textContent = 'Não foi possível carregar horários agora.';
     }
   }
 
@@ -1033,14 +1042,14 @@
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify(payload)
       });
-      const json = await r.json();
+      const json = await parseApiJson(r);
       if (!r.ok) throw new Error((json.errors||['Erro ao agendar']).join(', '));
       state.selected.clear();
       renderServices(); renderCart();
       showStep('success');
     } catch (e) {
       fb.className = 'feedback error';
-      fb.textContent = e.message;
+      fb.textContent = 'Não foi possível concluir o agendamento agora.';
       btn.disabled = false;
       btn.textContent = 'Confirmar agendamento';
     }
